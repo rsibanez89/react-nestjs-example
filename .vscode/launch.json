@@ -1,0 +1,67 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Client",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "start"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node",
+            "console": "integratedTerminal",
+            "localRoot": "${workspaceRoot}/client"
+        },
+        {
+            "name": "Launch Server",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "start:dev"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node",
+            "console": "integratedTerminal",
+            "localRoot": "${workspaceRoot}/server"
+        },
+        {
+            "name": "Test Current Client File",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "test",
+                "${fileBasenameNoExtension}"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node",
+            "console": "integratedTerminal",
+            "localRoot": "${workspaceRoot}/client"
+        },
+        {
+            "name": "Test Current Server File",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "test",
+                "${fileBasenameNoExtension}"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node",
+            "console": "integratedTerminal",
+            "localRoot": "${workspaceRoot}/server"
+        },
+    ]
+  }

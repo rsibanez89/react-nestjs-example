@@ -1,2 +1,25 @@
 # react-nestjs-example
-Example app that uses React in the FE and NestJs in the BE.
+Ejemplo de app que usa React en el FE y NestJs en el BE.
+
+Setup:
+```
+# FE
+> cd client
+> yarn install
+
+# BE
+> cd server
+> yarn install
+```
+
+Iniciar los servicios:
+```
+# FE
+> cd client
+> yarn start
+
+# BE
+> cd server
+> yarn start:dev
+```
+
