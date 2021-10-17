@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UserRequest } from './dto/user.request';
 import { User } from '@shared/contracts/users';
 
 @Injectable()
@@ -44,7 +43,7 @@ export class UsersService {
     ];
   }
 
-  create(createUserDto: CreateUserDto) {
+  create(createUserDto: UserRequest) {
     return 'This action adds a new user';
   }
 
@@ -53,11 +52,14 @@ export class UsersService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.users.find((u) => u.id === id);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(id: number, updateUserDto: UserRequest) {
+    const index = this.users.findIndex((u) => u.id === id);
+    const newUser = { ...this.users[index], ...updateUserDto };
+    this.users[index] = newUser;
+    return newUser;
   }
 
   remove(id: number) {

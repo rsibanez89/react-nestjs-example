@@ -1,52 +1,64 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import { User } from '../../shared/contracts/users'
-import { Table } from 'react-bootstrap';
+import React from "react";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import "./App.css";
+import AppUser from "./pages/AppUsers/AppUser";
+import AppUsers from "./pages/AppUsers/AppUsers";
+
+function NotFound() {
+  return <h1>Not Found!</h1>
+}
 
 function App() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [isLoading, setLoading] = useState<Boolean>(false);
-
-  useEffect(() => {
-    async function fetchUsers() {
-      setLoading(true);
-      const users = await (
-        await fetch("http://localhost:8080/users")
-      ).json();
-      console.log(users);
-      setUsers(users);
-      setLoading(false);
-    }
-
-    fetchUsers();
-  }, []);
-
+  
   return (
-    <div className="app">
-     <h1>Administracion de usuarios</h1>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Username</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <tr>
-              <td>{user.id}</td>
-              <td>{user.username}</td>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td>{user.email}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+    <Router>
+      <Navbar bg="dark" variant="dark" expand="sm">
+        <Container fluid>
+          <Navbar.Brand href="#home">
+            <img
+              src="/logo192.png"
+              width="30"
+              height="30"
+              className="ms-2"
+              alt="React Bootstrap logo"
+            />
+          </Navbar.Brand>
+
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link as={Link} to="/">Home</Nav.Link>
+              <Nav.Link as={Link} to="users">Usuarios</Nav.Link>
+            </Nav>
+            <Nav>
+              <NavDropdown title="Yo" id="basic-nav-dropdown" align="end">
+                <NavDropdown.Item as={Link} to="me">Ver Perfil</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="logout">
+                  Cerrar sesión
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={Link} to="admin">Cerrar sesión</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Switch>
+          <Route exact path="/" render={()=> (<h1>Home</h1>)} />
+          <Route exact path="/users" component={AppUsers} />
+          <Route path="/users/:userId" component={AppUser} />
+
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+    </Router>
   );
 }
 
